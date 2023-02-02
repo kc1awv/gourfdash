@@ -1,4 +1,10 @@
-export { getDateString, getTimeString, localTimeString, isLessThanOneMinuteAgo, secondsToTime };
+export {
+  getDateString,
+  getTimeString,
+  localTimeString,
+  isLessThanOneMinuteAgo,
+  secondsToTime,
+};
 
 function getDateString(dt) {
   const year = dt.getFullYear();
@@ -65,7 +71,7 @@ function secondsToTime(seconds) {
   const hours = Math.floor((seconds % 86400) / 3600);
   const minutes = Math.floor(((seconds % 86400) % 3600) / 60);
 
-  let time = '';
+  let time = "";
   if (days > 0) {
     time += `${days} days, `;
   }

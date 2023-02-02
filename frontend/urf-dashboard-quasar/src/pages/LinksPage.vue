@@ -24,8 +24,7 @@ import { localTimeString } from "../js/utilities.js";
 import { useQuasar } from "quasar";
 import { createArrayExpression } from "@vue/compiler-core";
 // Import the Axios library
-import axios from 'axios';
-
+import axios from "axios";
 
 const link_columns = [
   {
@@ -94,8 +93,9 @@ export default defineComponent({
   },
   methods: {
     fetchLinks() {
-      let url = "/json/links"
-      axios.get(url)
+      let url = "/json/links";
+      axios
+        .get(url)
         .then((response) => {
           let links = response.data;
           links.forEach(function (link, index) {

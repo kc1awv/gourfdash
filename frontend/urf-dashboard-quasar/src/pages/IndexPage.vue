@@ -6,27 +6,60 @@
           <q-markup-table>
             <thead>
               <tr>
-                <th class="gt-xs text-right" style="max-width:50px">#</th>
-                <th class="text-center" style="max-width:50px">Flag</th>
-                <th class="text-center" style="max-width:150px"><q-btn flat no-caps>Callsign</q-btn></th>
-                <th class="gt-xs text-left" style="max-width:50px">Suf</th>
-                <th class="gt-xs text-left" style="max-width:100px">Link/Peer</th>
-                <th class="text-left" style="max-width:50px">Mod</th>
-                <th class="text-left" style="max-width:150px">Last Heard</th>
+                <th class="gt-xs text-right" style="max-width: 50px">#</th>
+                <th class="text-center" style="max-width: 50px">Flag</th>
+                <th class="text-center" style="max-width: 150px">
+                  <q-btn flat no-caps>Callsign</q-btn>
+                </th>
+                <th class="gt-xs text-left" style="max-width: 50px">Suf</th>
+                <th class="gt-xs text-left" style="max-width: 100px">
+                  Link/Peer
+                </th>
+                <th class="text-left" style="max-width: 50px">Mod</th>
+                <th class="text-left" style="max-width: 150px">Last Heard</th>
               </tr>
             </thead>
             <tbody>
               <tr v-for="station in station_rows" :key="station">
-                <td class="gt-xs text-right" style="max-width:50px">{{ station.id }}</td>
-                <td class="text-center" style="max-width:50px"><img width=30 :src="`/flags/${station.country.countrycode}.png`"/></td>
-                <td class="text-center" style="max-width:150px">
-                  <q-btn icon-right="campaign" v-if="station.txactive == true" color="red" text-color="white" :href="`https://www.qrz.com/db/${station.callsign}`" target="_blank"><u>{{ station.callsign }}</u></q-btn>
-                  <q-btn v-else flat :href="`https://www.qrz.com/db/${station.callsign}`" target="_blank"><u>{{ station.callsign }}</u></q-btn>
+                <td class="gt-xs text-right" style="max-width: 50px">
+                  {{ station.id }}
                 </td>
-                <td class="gt-xs text-left" style="max-width:50px">{{ station.callsignsuffix }}</td>
-                <td class="gt-xs text-left" style="max-width:100px">{{ station.vianode }}</td>
-                <td class="text-left" style="max-width:50px">{{ station.onmodule }}</td>
-                <td class="text-left" style="max-width:150px">{{ station.lastheardlocal }}</td>
+                <td class="text-center" style="max-width: 50px">
+                  <img
+                    width="30"
+                    :src="`/flags/${station.country.countrycode}.png`"
+                  />
+                </td>
+                <td class="text-center" style="max-width: 150px">
+                  <q-btn
+                    icon-right="campaign"
+                    v-if="station.txactive == true"
+                    color="red"
+                    text-color="white"
+                    :href="`https://www.qrz.com/db/${station.callsign}`"
+                    target="_blank"
+                    ><u>{{ station.callsign }}</u></q-btn
+                  >
+                  <q-btn
+                    v-else
+                    flat
+                    :href="`https://www.qrz.com/db/${station.callsign}`"
+                    target="_blank"
+                    ><u>{{ station.callsign }}</u></q-btn
+                  >
+                </td>
+                <td class="gt-xs text-left" style="max-width: 50px">
+                  {{ station.callsignsuffix }}
+                </td>
+                <td class="gt-xs text-left" style="max-width: 100px">
+                  {{ station.vianode }}
+                </td>
+                <td class="text-left" style="max-width: 50px">
+                  {{ station.onmodule }}
+                </td>
+                <td class="text-left" style="max-width: 150px">
+                  {{ station.lastheardlocal }}
+                </td>
               </tr>
             </tbody>
           </q-markup-table>
@@ -42,7 +75,8 @@
                   <div
                     class="col-6 q-pa-sm"
                     v-for="module in modules"
-                    :key="module.name">
+                    :key="module.name"
+                  >
                     <q-card class="mycard">
                       <q-card-section>
                         <q-item-label header align="center"
@@ -50,12 +84,17 @@
                         </q-item-label>
                         <q-item-label align="center">
                           <q-list bordered separator>
-                            <q-item clickable v-ripple v-for="callsign in module.callsigns" :key="callsign">
+                            <q-item
+                              clickable
+                              v-ripple
+                              v-for="callsign in module.callsigns"
+                              :key="callsign"
+                            >
                               <q-item-section>{{ callsign }}</q-item-section>
                             </q-item>
                           </q-list>
                         </q-item-label>
-                    </q-card-section>
+                      </q-card-section>
                     </q-card>
                   </div>
                 </div>
@@ -75,7 +114,7 @@ import { localTimeString, isLessThanOneMinuteAgo } from "../js/utilities.js";
 import { useQuasar } from "quasar";
 import { createArrayExpression } from "@vue/compiler-core";
 // Import the Axios library
-import axios from 'axios';
+import axios from "axios";
 
 export default defineComponent({
   data() {
@@ -107,8 +146,9 @@ export default defineComponent({
   },
   methods: {
     fetchMetadata() {
-      let url = "/json/metadata"
-      axios.get(url)
+      let url = "/json/metadata";
+      axios
+        .get(url)
         .then((response) => {
           this.metadata = response.data;
         })
@@ -118,8 +158,9 @@ export default defineComponent({
         });
     },
     fetchStationsList() {
-      let url = "/json/stations"
-      axios.get(url)
+      let url = "/json/stations";
+      axios
+        .get(url)
         .then((response) => {
           let stationdata = response.data;
           stationdata.stations.forEach(function (station, index) {
@@ -142,8 +183,9 @@ export default defineComponent({
           // Print any error messages to the console
           console.error(error);
         });
-      let url2 = "/json/modulesinuse"
-      axios.get(url2)
+      let url2 = "/json/modulesinuse";
+      axios
+        .get(url2)
         .then((response) => {
           this.modules = response.data;
         })

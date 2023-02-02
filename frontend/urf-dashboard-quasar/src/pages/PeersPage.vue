@@ -24,8 +24,7 @@ import { localTimeString } from "../js/utilities.js";
 import { useQuasar } from "quasar";
 import { createArrayExpression } from "@vue/compiler-core";
 // Import the Axios library
-import axios from 'axios';
-
+import axios from "axios";
 
 const peer_columns = [
   {
@@ -87,8 +86,9 @@ export default defineComponent({
   },
   methods: {
     fetchPeers() {
-      let url = "/json/peers"
-      axios.get(url)
+      let url = "/json/peers";
+      axios
+        .get(url)
         .then((response) => {
           let peers = response.data;
           peers.forEach(function (peer, index) {
