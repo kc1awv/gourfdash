@@ -1,0 +1,22 @@
+version: "3.9"  # optional since v1.27.0
+services:
+  gomrefdash:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - /var/log/mrefd.xml:/var/log/mrefd.xml
+      - /var/run/mrefd.pid:/var/run/mrefd.pid
+      - ./callsign_country.csv:/var/callsign_country.csv
+    environment:
+      - GOMREFDASH_HOSTPORT=:3000
+      - GOMREFDASH_IPV4=127.0.0.1          # Reflector IPv4 address
+      - GOMREFDASH_IPV6=NONE  # Reflector IPv6 address (if none, use NONE)
+      - GOMREFDASH_REFRESH=20            # Page refresh in seconds
+      - GOMREFDASH_LASTHEARD=20          # Number of stations to display in Last Heard
+      - GOMREFDASH_EMAIL=sysop@m17reflector.xyz # email address to contact about the reflector
+      - GOMREFDASH_MREFFILE=/var/log/mrefd.xml # where the mrefd.xml is mounted
+      - GOMREFDASH_MREFPIDFILE=/var/run/mrefd.pid # where the mrefd.pid is mounted
+      #- GOMREFDASH_SUBPATH=/reflector # uncomment e.g. /reflector would be http://yourhostname/reflector
+      - GOMREFDASH_CALLSIGNCOUNTRYFILE=/var/callsign_country.csv # path to callsign_country.csv file
+    restart: always

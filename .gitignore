@@ -1,0 +1,16 @@
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+go.work
+.env
+app
+urfd.xml
+urfd.old
+gourfdash
+docker-compose.yml
+.vscode
+gourfdash.toml
